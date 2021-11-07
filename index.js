@@ -54,7 +54,7 @@ app.post('/addCourse', async (req,res) => {
         });
     }
     catch{
-        return res.status(500).json("(message: Failed to Add Course - Bad Data)");
+        return res.status(400).json("(message: Failed to Add Course - Bad Data)");
     }
 });
 
@@ -64,7 +64,7 @@ app.get('/getAllCourses', async (req,res) => {
         return res.status(200).json(courses);
     }
     catch{
-        return res.status(500).json("(message: Failed to Access Course Data)")
+        return res.status(400).json("(message: Failed to Access Course Data)")
     }
 });
 
@@ -80,7 +80,7 @@ app.post('/addStudent', async (req,res) => {
         });
     }
     catch {
-        return res.status(500).json("(message: Failed to Add Student - Bad Data)");
+        return res.status(400).json("(message: Failed to Add Student - Bad Data)");
     }
 });
 
@@ -90,7 +90,7 @@ app.get('/getAllStudents', async (req,res) => {
         return res.status(200).json(students);
     }
     catch{
-        return res.status(500).json("(message: Failed to Access Student Data)")
+        return res.status(400).json("(message: Failed to Access Student Data)")
     }
 });
 
