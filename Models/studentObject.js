@@ -18,6 +18,12 @@ const Student = new Schema({
     {
         type: String,
         required: true
+    },
+    
+    dateEntered:
+    {
+        type: Date,
+        default: Date.now
     }
 });
 mongoose.model('Student', Student);
