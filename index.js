@@ -68,6 +68,32 @@ app.get('/getAllCourses', async (req,res) => {
     }
 });
 
+app.post('/addStudent', async (req,res) => {
+    try{
+        let student = {
+            fname: req.body.fname,
+            lname: req.body.lname,
+            studentID: req.body.studentID
+        }
+        await Student(student).save().then(s => {
+            return res.status(201).json("Student Added");
+        });
+    }
+    catch {
+        return res.status(500).json("(message: Failed to Add Student - Bad Data)");
+    }
+});
+
+app.get('/getAllStudents', async (req,res) => {
+    try{
+        let students = await Student.find({}).lean();
+        return res.status(200).json(students);
+    }
+    catch{
+        return res.status(500).json("(message: Failed to Access Student Data)")
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server Started on Port ${PORT}`);
 });
