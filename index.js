@@ -108,8 +108,8 @@ app.get('/getAllStudents', async (req,res) => {
 app.get('/findStudent', async (req,res) => {
     try{
         let query = req.body.fname;
-        let courses = await Student.find({"fname" : query});
-        return res.status(200).json(courses);
+        let students = await Student.find({"fname" : query});
+        return res.status(200).json(students);
     }
     catch{
         return res.status(400).json("(message: Failed to Access Student Data)")
