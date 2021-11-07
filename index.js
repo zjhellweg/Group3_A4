@@ -68,6 +68,17 @@ app.get('/getAllCourses', async (req,res) => {
     }
 });
 
+app.get('/findCourse', async (req,res) => {
+    try{
+        let query = req.body.courseID;
+        let courses = await Course.find({"courseID" : query});
+        return res.status(200).json(courses);
+    }
+    catch{
+        return res.status(400).json("(message: Failed to Access Course Data)")
+    }
+});
+
 app.post('/addStudent', async (req,res) => {
     try{
         let student = {
