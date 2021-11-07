@@ -94,6 +94,17 @@ app.get('/getAllStudents', async (req,res) => {
     }
 });
 
+app.get('/findStudent', async (req,res) => {
+    try{
+        let query = req.body.fname;
+        let courses = await Student.find({"fname" : query});
+        return res.status(200).json(courses);
+    }
+    catch{
+        return res.status(400).json("(message: Failed to Access Student Data)")
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server Started on Port ${PORT}`);
 });
