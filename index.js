@@ -6,7 +6,7 @@ app.use(express.json());
 //mongoDB Package
 const mongoose = require('mongoose');
 
-const port = 1100;
+const PORT = 1200;
 
 const dbUrl = 'mongodb+srv://Drickikcha:1234@cluster0.iwesf.mongodb.net/Project1?retryWrites=true&w=majority';
 
@@ -31,18 +31,17 @@ db.once('open', () => {
 });
 
 //Schema/Model Declaration
-/*
-require('./Models/Object');
-require('./Models/Object1');
+require('./Models/studentObject');
+require('./Models/courseObject');
 
-const Object = mongoose.model('Object');
-const Object1 = mongoose.model('Object1');
-*/
+const Student = mongoose.model('Student');
+const Course = mongoose.model('Course');
 
-app.get('/',(req,res)=>{
-    return res.status(200).json("(message: OK)")
+app.get('/',(req,res) => {
+    return res.status(200).json("(message: OK)");
 });
 
-app.listen(port, ()=>{
-    console.log(`Server started on port ` + port);
-})
+
+app.listen(PORT, () => {
+    console.log(`Server Started on Port ${PORT}`);
+});
