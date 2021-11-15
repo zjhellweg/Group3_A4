@@ -108,11 +108,94 @@ app.get('/getAllStudents', async (req,res) => {
 app.get('/findStudent', async (req,res) => {
     try{
         let query = req.body.fname;
-        let students = await Student.find({"fname" : query});
-        return res.status(200).json(students);
+        let courses = await Student.find({"fname" : query});
+        return res.status(200).json(courses);
     }
     catch{
         return res.status(400).json("(message: Failed to Access Student Data)")
+    }
+});
+
+app.post('/editStudentById', async (req, res) =>{
+    try{
+        let student = await Student.updateOne({_id: req.body.id},{
+            fname: req.body.fname
+        },{upsert:true});
+
+        if(student){
+            return res.status(200).json("(message: Student updated.)");
+        }else{
+            return res.status(200).json("(message: No student found");
+        }
+    }
+    catch {
+        return res.status(400).json("(message: Failed to edit student - Bad Data)");
+    }
+});
+
+app.post('/editStudentByFname', async (req,res)=>{
+    try{
+        let student = await Student.updateOne({_fname: req.body.queryName},{
+            queryName: req.body.queryName,
+            fname: req.body.fname,
+            lname: req.body.lname
+        },{upsert:true});
+
+        if(student){
+            return res.status(200).json("(message: Student updated.)");
+        }else{
+            return res.status(200).json("(message: No student found");
+        }
+    }
+    catch {
+        return res.status(400).json("(message: Failed to edit student - Bad Data)");
+    }
+});
+
+app.post('/editCourseByCourseName', async (req,res)=>{
+    try{
+        let course = await Course.updateOne({_id: req.body.courseName},{
+            courseInstructor: req.body.instructorName
+        },{upsert:true});
+
+        if(course){
+            return res.status(200).json("(message: Educator updated.)");
+        }else{
+            return res.status(200).json("(message: No class found");
+        }
+    }
+    catch {
+        return res.status(400).json("(message: Failed to edit class - Bad Data)");
+    }
+});
+
+app.post('/deleteCourseById', async (req,res)=>{
+    try{
+        let course = await Course.deleteOne({_id: req.body.id});
+
+        if(course){
+            return res.status(200).json("(message: Course Deleted.)");
+        }else{
+            return res.status(200).json("(message: Class not found");
+        }
+    }
+    catch {
+        return res.status(400).json("(message: Failed to delete class - Bad Data)");
+    }
+});
+
+app.post('/removeStudentFromClasses', async (req,res)=>{
+    try{
+        let course = await Course.Students.remove({_studentId: req.body.studentId});
+
+        if(course){
+            return res.status(200).json("(message: Student Removed.)");
+        }else{
+            return res.status(200).json("(message: Stuent not found");
+        }
+    }
+    catch {
+        return res.status(400).json("(message: Failed to delete student - Bad Data)");
     }
 });
 
