@@ -135,14 +135,32 @@ app.post('/editStudentById', async (req, res) =>{
 
 app.post('/editStudentByFname', async (req,res)=>{
     try{
-        let student = await Student.updateOne({_fname: req.body.queryName},{
-            queryName: req.body.queryName,
+        let student = await Student.updateOne({fname: req.body.queryFname},{
+            queryFname: req.body.queryFname,
             fname: req.body.fname,
             lname: req.body.lname
         },{upsert:true});
 
         if(student){
             return res.status(200).json("(message: Student updated.)");
+        }else{
+            return res.status(200).json("(message: No student found");
+        }
+    }
+    catch {
+        return res.status(400).json("(message: Failed to edit student - Bad Data)");
+    }
+});
+
+app.get('/restoreFreddy', async (req,res)=>{
+    try{
+        let student = await Student.updateOne({_id: "6189974228ea297d0bf4ac04"},{
+            fname: "Freddy",
+            lname: "Riemann"
+        },{upsert:true});
+
+        if(student){
+            return res.status(200).json("(message: Freddy is back!)");
         }else{
             return res.status(200).json("(message: No student found");
         }
